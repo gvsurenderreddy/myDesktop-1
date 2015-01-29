@@ -1,0 +1,39 @@
+body {
+	display: block;
+	margin: 0;
+/*	margin-bottom: 0;
+	margin-left: 0;
+	margin-right: 0;
+	margin-top: 0;*/
+	background-color: #000000;
+}
+
+/*每个icon　DIV*/
+.cdiv {
+/*	border: solid 1px #FF0000;*/
+	width: 80px;
+	height: 100px;
+	position: absolute;
+	z-index: 0;
+}
+
+.rightClick {
+	border: solid 1px #999999;
+	width: 180px;
+/*	height: 300px;*/
+	position: absolute;
+	z-index: 100;
+}
+
+#bg {
+	position: absolute;
+	z-index: -1;
+	background-color: #000000;
+}
+
+/*每个icon DIVde的canvas*/
+.dcanvas {
+	position: absolute;
+	z-index: 0;
+/*	background-color: #999999;*/
+}

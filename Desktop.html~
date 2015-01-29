@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>Desktop</title>
+ <!--   <meta name="author" content="LYL, liyl_os@sari.ac.cn" />
+    <meta name="Keywords" content="html5,js,css,desktop" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />-->
+    <link rel="stylesheet" href="Css/Desktop.css" type="text/css" />
+    <script src="Js/Desktop.js"></script>
+  </head>
+
+  <body>
+    <canvas class="background" id="bg">
+    Your browser does not support Canvas element.
+    </canvas>
+  </body>
+
+</html>
