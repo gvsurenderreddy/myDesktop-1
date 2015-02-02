@@ -5,6 +5,23 @@ var icon_name = new Array();
 var w_Width = window.screen.availWidth;
 var w_Height = window.screen.availHeight;
 
+function test9(){
+
+	//node-webkit do not use firefox;
+	var div = document.getElementById("123");
+	var test = document.createElement("menu");
+	div.appendChild(test);
+	test.setAttribute('type', 'context');
+	test.setAttribute('id', 'test');
+	var test2 = document.createElement("menuitem");
+	test.appendChild(test2);
+	test2.setAttribute('lable', 'test');
+	test2.setAttribute('onclick', 'arert("hi!");');
+	test2.setAttribute('icon','Icon/test.png');
+
+}
+
+
 /*创建文件(壁纸)选择框*/
 function chooseFile(){
 	var chooseDiv = document.createElement("div");
@@ -49,16 +66,6 @@ function bgChange(){
 		console.info("------do not get name------");
 	}
 	bg(bgPath);
-
-/*	var inputObj=document.createElement('input')
-        inputObj.setAttribute('id','bgchange');
-        inputObj.setAttribute('type','file');
-        inputObj.setAttribute("style",'visibility:hidden');
-        document.body.appendChild(inputObj);
-        inputObj.click();
-	console.info("Test:----Click by bgChange---");
-	inputObj.value;	
-*/
 }
 
 function test2(){
@@ -409,5 +416,6 @@ window.onload = function() {
 	getName(path);
 	createRight();
 	bgMouseEvent(); //空白处右键菜单
+//	test9();
 	chooseFile();
 }
