@@ -5,20 +5,36 @@ var icon_name = new Array();
 var w_Width = window.screen.availWidth;
 var w_Height = window.screen.availHeight;
 
-function test9(){
+//桌面空白处菜单列表
+//MenuItem API requires node-webkit >= 0.3.0
+function backgroundMenu(){
+	//Load native UI library
+	var gui = require('nw.gui');
+	var menu = new gui.Menu();
+	menu.append(new gui.MenuItem({ label: 'Item 1' }));
+	menu.append(new gui.MenuItem({ label: 'Item 2' }));
+	menu.append(new gui.MenuItem({ type: 'separator' }));
+	menu.append(new gui.MenuItem({ label: '更换壁纸' }));
+	menu.popup(10, 10);
+	menu.items[0].click = function() {
+		console.info("Item 1");
+	}
+	menu.items[3].click = function(){
+		console.info("更换壁纸");
+		test2();
+	}
+}
 
-	//node-webkit do not use firefox;
-	var div = document.getElementById("123");
-	var test = document.createElement("menu");
-	div.appendChild(test);
-	test.setAttribute('type', 'context');
-	test.setAttribute('id', 'test');
-	var test2 = document.createElement("menuitem");
-	test.appendChild(test2);
-	test2.setAttribute('lable', 'test');
-	test2.setAttribute('onclick', 'arert("hi!");');
-	test2.setAttribute('icon','Icon/test.png');
-
+//桌面空白处菜单列表
+function iconMenu() {
+	var gui = require('nw.gui');
+	var menu = new gui.Menu();
+	menu.append(new gui.MenuItem({ label: 'Test1' }));
+	menu.append(new gui.MenuItem({ label: 'Test2' }));
+	menu.append(new gui.MenuItem({ label: 'Test3' }));
+	menu.append(new gui.MenuItem({ type: 'separator' }));
+	menu.append(new gui.MenuItem({ label: 'Test4' }));
+	menu.popup(10,100);
 }
 
 
@@ -47,6 +63,13 @@ function chooseFile(){
 	inputChoose.style.cssText = "position:absolute; left:10px; top:370px; background-color: #ffffff";
 //	inputChoose.click();
 
+	var cancel = document.createElement("input");
+	cancel.setAttribute('type','button');
+	cancel.setAttribute('value','取消');
+	cancel.setAttribute('onclick','document.getElementById("choosediv").style.display = "none";');
+	chooseDiv.appendChild(cancel);
+	cancel.style.cssText = "position:absolute; left:380px; top:370px; width:80px; background-color: #ffffff";
+
 	var getPath = document.createElement("input");
 	getPath.setAttribute('type','button');
 	getPath.setAttribute('value','应用');
@@ -56,10 +79,10 @@ function chooseFile(){
 }
 
 function bgChange(){
-	console.info("-----bg change!-----");
+//	console.info("-----bg change!-----");
 	
 	var bgPath = document.getElementById("choosefile").value;
-	console.info(bgPath);
+//	console.info(bgPath);
 	document.getElementById("choosediv").style.display = "none";
 
 	if (bgPath == ""){
@@ -73,73 +96,6 @@ function test2(){
 	tempChoosediv.style.left = (w_Width - 600)/2 + "px";
 	tempChoosediv.style.top = (w_Height - 400)/2 + "px";
 	tempChoosediv.style.display = "block";
-	console.info("-----This is a picture!-----");
-}
-
-/*隐藏无需显示的DIV*/
-function hidediv_right(num){
-//	console.info("---num---",num);
-	if (0 != num){
-		document.getElementById("kong").style.display = "none";
-	}
-	if (1 != num){
-		document.getElementById("fixed").style.display = "none";
-	}
-	if (2 != num){ 
-		document.getElementById("file").style.display = "none";
-	}
-	if (3 != num){
-		document.getElementById("picture").style.display = "none";
-	}
-}
-
-/*创建右击事件 DIV*/
-function createRight(){
-	var m = 0;
-	var n;
-	var r_div = new Array();
-	var inPut = new Array();
-	for(; m < 4; m++){
-		r_div[m] = document.createElement("div");
-		document.body.appendChild(r_div[m]);
-		r_div[m].setAttribute("class","rightClick");
-		r_div[m].style.display = "none";
-	}
-	r_div[0].setAttribute("id", "kong");
-	r_div[1].setAttribute("id", "picture");
-	r_div[2].setAttribute("id", "file");
-	r_div[3].setAttribute("id", "fixed");
-
-	inPut[0] = new Array();
-	for (n = 0; n < 7; n++){   		
-		inPut[0][n] = document.createElement("input");
-		r_div[0].appendChild(inPut[0][n]);
-		inPut[0][n].type = "button";
-		inPut[0][n].style.width = 180 + "px";
-		inPut[0][n].style.height = 25 + "px";
-	}
-//	inPut.id = "test";
-	inPut[0][0].value = "更换壁纸";
-	inPut[0][1].value = "This is test2!";
-	inPut[0][2].value = "This is test3!";
-	inPut[0][3].value = "This is test4!";
-	inPut[0][4].value = "This is test5!";
-	inPut[0][5].value = "This is test6!";
-	inPut[0][6].value = "This is test7!";
-	inPut[0][0].setAttribute("onClick", "test2();");
-
-	inPut[1] = new Array();
-	for (n = 0; n < 3; n++){
-		inPut[1][n] = document.createElement("input");
-		r_div[1].appendChild(inPut[1][n]);
-		inPut[1][n].type = "button";
-		inPut[1][n].style.width = 180 + "px";
-		inPut[1][n].style.height = 25 + "px";
-	}
-	inPut[1][0].value = "This is picture1!";
-	inPut[1][1].value = "This is picture2!";
-	inPut[1][2].value = "This is picture3!";
-	inPut[1][0].setAttribute("onClick", "test2()");
 }
 
 /*空白处（壁纸）鼠标事件*/
@@ -148,17 +104,7 @@ function bgMouseEvent(){ //
 	bgevent.onmousedown = function(e){
 		if (e.button == 2)
 		{
-			hidediv_right(0);
-
-			var tempRight = document.getElementById("kong");
-			
-			tempRight.style.left = mouseX + "px";
-			tempRight.style.top = mouseY + "px";
-			tempRight.style.display = "block";
-
-			document.addEventListener("click", function(){
-				tempRight.style.display = "none";
-			});
+			backgroundMenu();
 		}	
 	}	
 }
@@ -230,28 +176,7 @@ function mouseEvent(divId){
 		}
 
 		if (e.button == 2){/*可根据对象id获取对应的class，然后给出对应的菜单*/
-			hidediv_right(3);
-			
-			var tempRight = document.getElementById("picture"); 
-			tempRight.style.left = mouseX + "px";
-			tempRight.style.top = mouseY + "px";
-			tempRight.style.display = "block";
-//			console.info(div.getAttribute("class")); //查看对象所属的CALSS
-
-			if (document.addEventListener){			
-					document.addEventListener("click", function(){ //火狐浏览器
-						tempRight.style.display = "none";
-						moveFlag = false;
-					},false);
-			}
-
-			if (document.attachEvent){
-				document.attachEvent("click", function(){ //IE浏览器
-					tempRight.style.display = "none";
-					moveFlag = false;
-				});
-			}
-			
+			iconMenu();
 		}
 	}
 }
@@ -398,24 +323,25 @@ function bg(url){
 	
 	var desk = new Image();
 	desk.src = url;
-//	desk.src ="Wallpapers/test.jpg";
 	desk.onload = function(){
 		ctx.drawImage(desk, 0, 0, w_Width, w_Height);
 	}
-}	
-
-function mouseXY(e){
-	mouseX = e.clientX;
-	mouseY = e.clientY;
-//	console.info("---X---Y---",mouseX,mouseY);
 }
 
+/*
+function mouseXY(){
+	onmousemove = function(e){
+	mouseX = e.clientX;
+	mouseY = e.clientY;
+	console.info(mouseX,mouseY);
+	}
+}*/
+
 window.onload = function() {
-	var path = "Icon/"
+//	mouseXY();
+	var path = "Icon/";
 	bg("Wallpapers/test.jpg");
 	getName(path);
-	createRight();
 	bgMouseEvent(); //空白处右键菜单
-//	test9();
 	chooseFile();
 }
