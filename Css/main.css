@@ -37,3 +37,13 @@ body {
 	z-index: 0;
 /*	background-color: #999999;*/
 }
+
+/*更换壁纸时的文件选择框*/
+#choosediv {
+	position: absolute;
+	border: solid 1px #000000;
+	z-index: 10;
+	height: 400px;
+	width: 600px;
+        background-color: #999999;
+}

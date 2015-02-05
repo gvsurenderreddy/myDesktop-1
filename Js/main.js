@@ -27,7 +27,7 @@ function backgroundMenu(){
 	}
 	menu.items[3].click = function(){
 		console.info("change wallpaper");
-		test2();
+		showDiv_changeBg();  //显示壁纸选择框
 	}
 }
 
@@ -43,8 +43,8 @@ function iconMenu() {
 	menu.popup(0,0);
 }
 
-
 /*创建文件(壁纸)选择框*/
+/*
 function chooseFile(){
 	var chooseDiv = document.createElement("div");
 	chooseDiv.setAttribute('id',"choosediv");
@@ -65,20 +65,27 @@ function chooseFile(){
 	var inputChoose = document.createElement("input");
 	inputChoose.setAttribute('id','choosefile');
 	inputChoose.setAttribute('type','file');
-	chooseDiv.appendChild(inputChoose);
-	inputChoose.style.cssText = "position:absolute; left:10px; top:370px; background-color: #ffffff";
-//	inputChoose.click();
+//	chooseDiv.appendChild(inputChoose);
+//	inputChoose.style.display = "none";
+//	inputChoose.style.cssText = "position:absolute; left:10px; top:370px; background-color: #ffffff";
+	var chooseBtn = document.createElement("input");
+	chooseDiv.appendChild(chooseBtn);
+	chooseBtn.setAttribute('type','button');
+	chooseBtn.setAttribute('value', '预览');
+	chooseBtn.style.cssText = "position:absolute; left:10px; top:370px    ; background-color: #ffffff";
+//	chooseBtn.setAttribute('onclick','console.info("test999");');
+	inputChoose.click();
 
 	var cancel = document.createElement("input");
 	cancel.setAttribute('type','button');
 	cancel.setAttribute('value','取消');
 	cancel.setAttribute('onclick','document.getElementById("choosediv").style.display = "none";');
 	chooseDiv.appendChild(cancel);
-	cancel.style.cssText = "position:absolute; left:380px; top:370px; width:80px; background-color: #ffffff";
+	cancel.style.cssText = "position:absolute; left:400px; top:370px; width:80px; background-color: #ffffff";
 
 	var getPath = document.createElement("input");
 	getPath.setAttribute('type','button');
-	getPath.setAttribute('value','应用');
+	getPath.setAttribute('value','应用(预览)');//目前此处相当于预览，此处不对数据做事实的保存处理，在今后实现对配置文件的更改才会实现真正的应用功能
 	getPath.setAttribute('onclick','bgChange();');
 	chooseDiv.appendChild(getPath);
 	getPath.style.cssText = "position:absolute; left:300px; top:370px; width:80px; background-color: #ffffff";
@@ -95,16 +102,10 @@ function bgChange(){
 		console.info("------do not get name------");
 	}
 	bg(bgPath);
-}
-
-function test2(){
-	var tempChoosediv = document.getElementById("choosediv");
-	tempChoosediv.style.left = (w_Width - 600)/2 + "px";
-	tempChoosediv.style.top = (w_Height - 400)/2 + "px";
-	tempChoosediv.style.display = "block";
-}
+}*/
 
 /*空白处（壁纸）鼠标事件*/
+/*
 function bgMouseEvent(){ //
 	var bgevent = document.getElementById("bg");
 	bgevent.onmousedown = function(e){
@@ -113,7 +114,7 @@ function bgMouseEvent(){ //
 			backgroundMenu();
 		}	
 	}	
-}
+}*/
 
 function mouseEvent(divId){
 	var moveFlag = false;
@@ -228,6 +229,7 @@ function drawImage(id){
 }
 
 /*创建DIV与CANVAS*/
+/*
 function divCanvas(i){
 	var t = 1;
 	var t_div = new Array();
@@ -253,7 +255,7 @@ function divCanvas(i){
 		drawImage(icon_name[t]);  //绘制ICON & NAME
 		mouseEvent(divid);  //DIV鼠标事件（左右击、拖拽等）
 	}
-}
+}*/
 
 /*屏幕分格*/
 function gridsCreate(ght, gwt, gHeight, gWidth){
@@ -292,6 +294,7 @@ function gridsCreate(ght, gwt, gHeight, gWidth){
 
 }
 
+//分隔大小设定
 function grids(){
 	var gridHt = parseInt(w_Height/120);
 	var gridWt = parseInt(w_Width/100); 
@@ -319,7 +322,7 @@ function getName(path){
 }
 
 
-/*绘制桌面壁纸*/
+/*绘制桌面壁纸*//*
 function bg(url){
 	var canvas_bg = document.getElementById("bg");
 	var ctx = canvas_bg.getContext("2d");
@@ -332,7 +335,7 @@ function bg(url){
 	desk.onload = function(){
 		ctx.drawImage(desk, 0, 0, w_Width, w_Height);
 	}
-}
+}*/
 
 /*
 function mouseXY(){
@@ -346,8 +349,8 @@ function mouseXY(){
 window.onload = function() {
 //	mouseXY();
 	var path = "Icon/";
-	bg("Wallpapers/test.jpg");
-	getName(path);
+	bg("Wallpapers/test.jpg"); //绘制背景，需要加壁纸路径
+	getName(path);  //遍历指定文件目录下所有文件路径,并获取文件名
 	bgMouseEvent(); //空白处右键菜单
-	chooseFile();
+	chooseFile(); //创建文件(壁纸)选择框
 }
