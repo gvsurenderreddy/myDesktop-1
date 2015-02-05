@@ -11,16 +11,22 @@ function backgroundMenu(){
 	//Load native UI library
 	var gui = require('nw.gui');
 	var menu = new gui.Menu();
-	menu.append(new gui.MenuItem({ label: 'Item 1' }));
-	menu.append(new gui.MenuItem({ label: 'Item 2' }));
+	var newCreate = new gui.Menu();
+	newCreate.append(new gui.MenuItem({ label: '新建文件夹' }));
+	newCreate.append(new gui.MenuItem({ label: '空白文档' }));
+	menu.append(new gui.MenuItem({label: '新建' , submenu: newCreate })); //添加一个子菜单
+	menu.append(new gui.MenuItem({ type: 'checkbox',label: '保持对齐' })); //nw的谷歌浏览器貌似对于checkbox的支持效果不是很好
 	menu.append(new gui.MenuItem({ type: 'separator' }));
 	menu.append(new gui.MenuItem({ label: '更换壁纸' }));
-	menu.popup(10, 10);
+	menu.popup(0,0);
 	menu.items[0].click = function() {
-		console.info("Item 1");
+		console.info("new");
+	}
+	newCreate.items[0].click = function() {
+		console.info("mkdir");
 	}
 	menu.items[3].click = function(){
-		console.info("更换壁纸");
+		console.info("change wallpaper");
 		test2();
 	}
 }
@@ -34,7 +40,7 @@ function iconMenu() {
 	menu.append(new gui.MenuItem({ label: 'Test3' }));
 	menu.append(new gui.MenuItem({ type: 'separator' }));
 	menu.append(new gui.MenuItem({ label: 'Test4' }));
-	menu.popup(10,100);
+	menu.popup(0,0);
 }
 
 
@@ -121,7 +127,7 @@ function mouseEvent(divId){
 				document.getElementById(tempId).style.zIndex = 0;
 			}
 			if (tempId != divId){
-				tempId = divId; //存放上一个操作ＤＩＶ的ＩＤ
+				tempId = divId; //存放上一个操作div的id值
 			}			
 			div.style.zIndex = 2;
 			var clickEvent = window.event || e; //兼容性代码，区分IE与其他浏览器事件
