@@ -43,69 +43,7 @@ function iconMenu() {
 	menu.popup(0,0);
 }
 
-/*创建文件(壁纸)选择框*/
-/*
-function chooseFile(){
-	var chooseDiv = document.createElement("div");
-	chooseDiv.setAttribute('id',"choosediv");
-	document.body.appendChild(chooseDiv);
-	chooseDiv.style.position = "absolute";
-	chooseDiv.style.zIndex = 10;
-	chooseDiv.style.border = "solid 1px #000000";
-	chooseDiv.style.height = "400px";
-	chooseDiv.style.width = "600px";
-	chooseDiv.style.backgroundColor = "#999999";
-	chooseDiv.style.display = "none";
-
-	var tempDiv = document.createElement("div");
-	tempDiv.setAttribute('id','tempdiv');
-	chooseDiv.appendChild(tempDiv);
-	tempDiv.style.cssText = "position:absolute; left:10px; top:10px; width:580px; height:350px; background-color: #ffffff"; 
-
-	var inputChoose = document.createElement("input");
-	inputChoose.setAttribute('id','choosefile');
-	inputChoose.setAttribute('type','file');
-//	chooseDiv.appendChild(inputChoose);
-//	inputChoose.style.display = "none";
-//	inputChoose.style.cssText = "position:absolute; left:10px; top:370px; background-color: #ffffff";
-	var chooseBtn = document.createElement("input");
-	chooseDiv.appendChild(chooseBtn);
-	chooseBtn.setAttribute('type','button');
-	chooseBtn.setAttribute('value', '预览');
-	chooseBtn.style.cssText = "position:absolute; left:10px; top:370px    ; background-color: #ffffff";
-//	chooseBtn.setAttribute('onclick','console.info("test999");');
-	inputChoose.click();
-
-	var cancel = document.createElement("input");
-	cancel.setAttribute('type','button');
-	cancel.setAttribute('value','取消');
-	cancel.setAttribute('onclick','document.getElementById("choosediv").style.display = "none";');
-	chooseDiv.appendChild(cancel);
-	cancel.style.cssText = "position:absolute; left:400px; top:370px; width:80px; background-color: #ffffff";
-
-	var getPath = document.createElement("input");
-	getPath.setAttribute('type','button');
-	getPath.setAttribute('value','应用(预览)');//目前此处相当于预览，此处不对数据做事实的保存处理，在今后实现对配置文件的更改才会实现真正的应用功能
-	getPath.setAttribute('onclick','bgChange();');
-	chooseDiv.appendChild(getPath);
-	getPath.style.cssText = "position:absolute; left:300px; top:370px; width:80px; background-color: #ffffff";
-}
-
-function bgChange(){
-//	console.info("-----bg change!-----");
-	
-	var bgPath = document.getElementById("choosefile").value;
-//	console.info(bgPath);
-	document.getElementById("choosediv").style.display = "none";
-
-	if (bgPath == ""){
-		console.info("------do not get name------");
-	}
-	bg(bgPath);
-}*/
-
 /*空白处（壁纸）鼠标事件*/
-/*
 function bgMouseEvent(){ //
 	var bgevent = document.getElementById("bg");
 	bgevent.onmousedown = function(e){
@@ -114,7 +52,7 @@ function bgMouseEvent(){ //
 			backgroundMenu();
 		}	
 	}	
-}*/
+}
 
 function mouseEvent(divId){
 	var moveFlag = false;
@@ -171,7 +109,6 @@ function mouseEvent(divId){
 			div.onmouseup = function(e){
 				moveFlag = false;
 				div.style.zIndex = 1;
-				hidediv_right();
 				alert("Click, You can clickdown and moving!");
 			}
 
@@ -184,6 +121,58 @@ function mouseEvent(divId){
 
 		if (e.button == 2){/*可根据对象id获取对应的class，然后给出对应的菜单*/
 			iconMenu();
+		}
+	}
+}
+
+//整个屏幕内拖动
+function drag(divId){
+	var moveFlag = false;
+	
+	var div = document.getElementById(divId);
+	div.onmousedown = function(e){
+		if (e.button == 0){  //鼠标左击
+			moveFlag = true;
+			var clickEvent = window.event || e; //兼容性代码，区分IE与其他浏览器事件
+			var mWidth = clickEvent.clientX - div.offsetLeft;
+			var mHeight = clickEvent.clientY - div.offsetTop;
+			
+			document.onmousemove = function(e){
+
+				var moveEvent = window.event || e;
+				if (moveFlag){
+					div.style.left = moveEvent.clientX - mWidth + "px";
+					div.style.top = moveEvent.clientY -mHeight + "px";
+					if (moveEvent.clientX <= mWidth){
+						div.style.left = 0 + "px";
+					}
+					if (parseInt(div.style.left) + div.offsetWidth >= w_Width){
+						div.style.left = w_Width - div.offsetWidth +"px";
+					}
+					if (moveEvent.clientY <= mHeight){
+						div.style.top = 0 + "px";
+					}
+					if (parseInt(div.style.top) + div.offsetHeight >= w_Height){
+						div.style.top = w_Height - div.offsetHeight + "px";
+					}
+					div.onmouseup = function(e){
+						if (e.button == 0){
+							moveFlag = false;
+						}
+					}
+					document.onmouseup = function(e){
+						var outEvent = window.event || e;
+						if (outEvent.clientX <= 0 || outEvent.clientX >= w_Width || outEvent.clientY <= 0 || outEvent.clientY >= w_Height){
+							moveFlag = false;
+						}
+					}                                                                                                 
+				}
+			}
+			div.onmouseup = function(e){
+				moveFlag = false;
+			}
+
+
 		}
 	}
 }
@@ -295,7 +284,7 @@ function gridsCreate(ght, gwt, gHeight, gWidth){
 }
 
 //分隔大小设定
-function grids(){
+function screen_grids(){
 	var gridHt = parseInt(w_Height/120);
 	var gridWt = parseInt(w_Width/100); 
 	var gridHeight = parseInt(w_Height/parseInt(w_Height/120));
@@ -317,25 +306,10 @@ function getName(path){
 			}, function (err){
 				if (err) throw err;
 //				divCanvas(i);  //创建DIV与canvas元素(未分格时方案)
-				grids(); //分格显示
+				screen_grids(); //分格显示
 			});
 }
 
-
-/*绘制桌面壁纸*//*
-function bg(url){
-	var canvas_bg = document.getElementById("bg");
-	var ctx = canvas_bg.getContext("2d");
-
-	canvas_bg.width = w_Width;
-	canvas_bg.height = w_Height;
-	
-	var desk = new Image();
-	desk.src = url;
-	desk.onload = function(){
-		ctx.drawImage(desk, 0, 0, w_Width, w_Height);
-	}
-}*/
 
 /*
 function mouseXY(){

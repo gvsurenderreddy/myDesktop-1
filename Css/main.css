@@ -47,3 +47,12 @@ body {
 	width: 600px;
         background-color: #999999;
 }
+
+#choosewp {
+	position:absolute;
+	left:10px;
+	top:10px;
+	width:580px;
+	height:350px;
+	background-color: #ffffff;
+}

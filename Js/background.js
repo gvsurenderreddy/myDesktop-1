@@ -13,54 +13,51 @@ function bg(url){
 	}
 }
 
-/*空白处（壁纸）鼠标事件*/
-function bgMouseEvent(){ //
-	var bgevent = document.getElementById("bg");
-	bgevent.onmousedown = function(e){
-		if (e.button == 2)
-		{
-			backgroundMenu();
-		}	
-	}	
-}
-
 //壁纸选择框
 function showDiv_changeBg(){
 	var tempChoosediv = document.getElementById("choosediv");
 	tempChoosediv.style.left = (w_Width - 600)/2 + "px";
 	tempChoosediv.style.top = (w_Height - 400)/2 + "px";
-	mouseEvent("choosediv");
+	drag("choosediv");  //允许拖拽
 	tempChoosediv.style.display = "block";
+}
+
+//显示文件选择框中的默认壁纸
+function showWallpapers(){
+	
 }
 
 /*创建文件(壁纸)选择框*/
 function chooseFile(){
 	var chooseDiv = document.createElement("div");
-	chooseDiv.setAttribute('id',"choosediv");
+	chooseDiv.setAttribute('id','choosediv');
 	document.body.appendChild(chooseDiv);
 	chooseDiv.style.display = "none";
 
 	var tempDiv = document.createElement("div");
-	tempDiv.setAttribute('id','choosefile_div');
+	tempDiv.setAttribute('id','choosewp');
 	chooseDiv.appendChild(tempDiv);
-	tempDiv.style.cssText = "position:absolute; left:10px; top:10px; width:580px; height:350px; background-color: #ffffff"; 
 
 	var inputChoose = document.createElement("input");
 	inputChoose.setAttribute('id','choosefile');
 	inputChoose.setAttribute('type','file');
+	inputChoose.setAttribute('accept','.png,.jpg，.jpeg'); //过滤文件类型
 	chooseDiv.appendChild(inputChoose);
 	inputChoose.style.display = "none";
-	inputChoose.style.cssText = "position:absolute; left:10px; top:370px; background-color: #ffffff";
-//	inputChoose.click();
 
-//	var chooseBtn = document.createElement("input");
-//	chooseDiv.appendChild(chooseBtn);
-//	inputChoose.setAttribute('id','choosefile_button');
-//	chooseBtn.setAttribute('type','button');
-//	chooseBtn.setAttribute('value', '预览');
-//	chooseBtn.style.cssText = "position:absolute; left:10px; top:370px; background-color: #ffffff";
-//	chooseBtn.setAttribute("onclick","console.info('1212')");
-//	inputChoose.click();
+
+	var chooseBtn = document.createElement("input");
+	chooseDiv.appendChild(chooseBtn);
+	chooseBtn.setAttribute('id','choosefile_button');
+	chooseBtn.setAttribute('type','button');
+	chooseBtn.setAttribute('value', 'test');
+	chooseBtn.style.cssText = "position:absolute; left:10px; top:370px; background-color: #ffffff";
+	chooseBtn.onclick = function(){
+		var a=document.createEvent("MouseEvents");//FF的处理 
+		a.initEvent("click", true, true);
+//		document.getElementById("choosefile").dispatchEvent(a);
+		inputChoose.dispatchEvent(a);
+	}
 
 	var cancel = document.createElement("input");
 	cancel.setAttribute('type','button');
@@ -76,4 +73,18 @@ function chooseFile(){
 	chooseDiv.appendChild(getPath);
 	getPath.style.cssText = "position:absolute; left:300px; top:370px; width:80px; background-color: #ffffff";
 }
+
+function bgChange(){
+//	console.info("-----bg change!-----");
+	
+	var bgPath = document.getElementById("choosefile").value;
+	console.info(bgPath);
+	document.getElementById("choosediv").style.display = "none";
+
+	if (bgPath == ""){
+		console.info("------do not get name------");
+	}
+	bg(bgPath);
+}
+
 
