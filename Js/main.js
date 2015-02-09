@@ -20,13 +20,13 @@ function backgroundMenu(){
 	menu.append(new gui.MenuItem({ label: '更换壁纸' }));
 	menu.popup(0,0);
 	menu.items[0].click = function() {
-		console.info("new");
+//		console.info("new");
 	}
 	newCreate.items[0].click = function() {
-		console.info("mkdir");
+//		console.info("mkdir");
 	}
 	menu.items[3].click = function(){
-		console.info("change wallpaper");
+//		console.info("change wallpaper");
 		showDiv_changeBg();  //显示壁纸选择框
 	}
 }
@@ -176,6 +176,16 @@ function drag(divId){
 		}
 	}
 }
+
+/*截取某字符串内特定字符 前/后 的字符串。eg： 123a456 取a前后的话就是123,456,。参数为0代表截取前面的，参数为1代表截取后面的*/
+function getStr(string,str,strFlag){
+	if (strFlag == 0)
+		return string.split(str)[0]; //截图str前面的字符串
+	if (strFlag == 1)
+		return string.split(str)[1]; //截图str后面的字符串
+	else
+		return string;
+} 
 
 /*截取长度为ilen长度的字符串istr。按照单字节的长度取，如2取一个汉字或者是两个字母，1取一个汉字或者是一个字母*/
 function getmystr(istr, ilen){

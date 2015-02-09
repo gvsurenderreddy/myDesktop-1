@@ -1,10 +1,12 @@
 body {
 	display: block;
 	margin: 0;
-/*	margin-bottom: 0;
-	margin-left: 0;
-	margin-right: 0;
-	margin-top: 0;*/
+	background-color: #000000;
+}
+
+#bg {
+	position: absolute;
+	z-index: -1;
 	background-color: #000000;
 }
 
@@ -17,21 +19,7 @@ body {
 	z-index: 0;
 }
 
-.rightClick {
-	border: solid 1px #999999;
-	width: 180px;
-/*	height: 300px;*/
-	position: absolute;
-	z-index: 100;
-}
-
-#bg {
-	position: absolute;
-	z-index: -1;
-	background-color: #000000;
-}
-
-/*每个icon DIVde的canvas*/
+/*每个icon DIV的canvas*/
 .dcanvas {
 	position: absolute;
 	z-index: 0;
@@ -39,7 +27,7 @@ body {
 }
 
 /*更换壁纸时的文件选择框*/
-#choosediv {
+#bgChoosediv {
 	position: absolute;
 	border: solid 1px #000000;
 	z-index: 10;
@@ -48,11 +36,38 @@ body {
         background-color: #999999;
 }
 
-#choosewp {
+#bgChoosewp {
 	position:absolute;
 	left:10px;
 	top:10px;
 	width:580px;
 	height:350px;
 	background-color: #ffffff;
+}
+
+#bgchoosefile_button {
+	position: absolute;
+	left: 10px;
+	top: 370px;
+	width: 80px;
+	height: 25px;
+	background-color: #999999;
+}
+
+#bgChoose_use {
+	position: absolute;
+	left: 150px;
+	top: 370px;
+	width: 80px;
+	height: 25px;
+	background-color: #999999;
+}
+
+#bgChoose_cancel {
+	position: absolute;
+	left: 250px;
+	top: 370px;
+	width: 80px;
+	height: 25px;
+	background-color: #999999;
 }
