@@ -1,0 +1,16 @@
+{
+	"name": "Desktop",
+	"main": "../main.html",
+	"width": 100,
+	"height": 200,
+	"window":{
+		"title": "Desktop-Demo",
+		"toolbar": true,
+		"frame": true,
+		"width": 1300,
+		"height": 800,
+//		"resizeble": true,  //是否允许调整窗口大小
+//		"fullscreen": true,  //是否全屏显示
+		"show_in_taskbar": true  //是否在任务栏显示图标
+	}
+}
