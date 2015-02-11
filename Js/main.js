@@ -332,7 +332,7 @@ function mouseXY(){
 
 window.onload = function() {
 //	mouseXY();
-	var path = "Icon/";
+	var path = "../Icon/";
 	bg("Wallpapers/test.jpg"); //绘制背景，需要加壁纸路径
 	getName(path);  //遍历指定文件目录下所有文件路径,并获取文件名
 	bgMouseEvent(); //空白处右键菜单
