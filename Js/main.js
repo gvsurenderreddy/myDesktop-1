@@ -18,7 +18,7 @@ function backgroundMenu(){
 	menu.append(new gui.MenuItem({ type: 'checkbox',label: '保持对齐' })); //nw的谷歌浏览器貌似对于checkbox的支持效果不是很好
 	menu.append(new gui.MenuItem({ type: 'separator' }));
 	menu.append(new gui.MenuItem({ label: '更换壁纸' }));
-	menu.popup(0,0);
+	menu.popup(mouseX,mouseY);
 	menu.items[0].click = function() {
 //		console.info("new");
 	}
@@ -31,7 +31,7 @@ function backgroundMenu(){
 	}
 }
 
-//桌面空白处菜单列表
+//桌面icon菜单列表
 function iconMenu() {
 	var gui = require('nw.gui');
 	var menu = new gui.Menu();
@@ -40,7 +40,7 @@ function iconMenu() {
 	menu.append(new gui.MenuItem({ label: 'Test3' }));
 	menu.append(new gui.MenuItem({ type: 'separator' }));
 	menu.append(new gui.MenuItem({ label: 'Test4' }));
-	menu.popup(0,0);
+	menu.popup(mouseX,mouseY);
 }
 
 /*空白处（壁纸）鼠标事件*/
@@ -321,17 +321,17 @@ function getName(path){
 }
 
 
-/*
+
 function mouseXY(){
 	onmousemove = function(e){
 	mouseX = e.clientX;
 	mouseY = e.clientY;
-	console.info(mouseX,mouseY);
+//	console.info(mouseX,mouseY);
 	}
-}*/
+}
 
 window.onload = function() {
-//	mouseXY();
+	mouseXY();
 	var path = "../Icon/";
 	bg("Wallpapers/test.jpg"); //绘制背景，需要加壁纸路径
 	getName(path);  //遍历指定文件目录下所有文件路径,并获取文件名
